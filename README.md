@@ -10,7 +10,57 @@
    <a href="https://needle.gg">Website ✨</a> &emsp; <a href="https://needle.gg/invite">Invite Needle 🪡</a> &emsp; <a href="https://needle.gg/chat">Get support 💬</a>
 </div>
 
-## Self-hosting
+# Fork Commands
+
+## `/tags`
+
+### tags view
+
+Display current thread tags.
+
+### tags clear
+
+Remove all tags from current thread.
+
+### tags add
+
+Add tags to current thread, appends to existing tags.
+
+### tags replace
+
+Replace tags for current thread.
+
+### tags status 
+
+Assign a status to the thread.
+
+### tags stats-top
+
+List top 25 tags (defaults to last 30 days).
+
+## `/archive`
+
+Grabs messages for current thread, saves data into 
+
+### s3Handler.js
+
+an S3 Bucket.
+
+### fsHandler.js
+
+a local folder.
+
+### Notes
+
+- For development (`npm run dev`), folder `/src/handlers/archive/` must be copied over to `/dist/handlers/`.  This because archive handlers are loaded dynamically so the build process does not include the files.
+
+## `/card`
+
+Builds a `card` for the user and includes badges depending on user server roles.
+
+
+
+# Self-hosting
 
 This step-by-step guide assumes you have [NodeJS](https://nodejs.org/en/) version `16.9.0` or higher installed and that you have a Discord Bot user set up at [Discord's developer page](https://discord.com/developers/applications) that has been invited to your server with the scopes `applications.commands` and `bot`.
 
@@ -27,13 +77,7 @@ This step-by-step guide assumes you have [NodeJS](https://nodejs.org/en/) versio
 6. Run `npm start`
 7. Deploy! :tada:
 
-## Contributing
-
-Coming soon :tm:
-
-[Join the Discord](https://needle.gg/chat) if interested!
-
-## License
+# License
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at
