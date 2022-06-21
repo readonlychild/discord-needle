@@ -16,7 +16,7 @@ import { interactionReply, getMessage, getThreadAuthor } from "../helpers/messag
 import type { NeedleCommand } from "../types/needleCommand";
 import { S3 } from 'aws-sdk';
 import { PutObjectRequest } from "aws-sdk/clients/s3";
-import { fakeUser } from './../helpers/utils';
+import { fakeUser, archiveThread } from './../helpers/utils';
 import { fetchThread } from './tags';
 
 export const command: NeedleCommand = {
@@ -98,7 +98,8 @@ export const command: NeedleCommand = {
         return -1;
       });
 
-      await saveToS3(threadData);
+      //await saveToS3(threadData);
+      await archiveThread(threadData);
 
       console.log ('archiving done.');
 			return interactionReply(interaction, ':thumbsup:');
@@ -173,7 +174,7 @@ async function getThreadStartMessage(channel: TextBasedChannel): Promise<Message
 		.fetch(channel.id)
 		.catch(() => null);
 }
-
+/*
 async function saveToS3(threadData: any): Promise<boolean> {
   const s3 = new S3({
     accessKeyId: process.env.S3_API_KEY,
@@ -203,3 +204,4 @@ async function saveToS3(threadData: any): Promise<boolean> {
     });
   });
 }
+*/
