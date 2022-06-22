@@ -61,7 +61,9 @@ export const command: NeedleCommand = {
       let threadData: any = {};
       threadData.name = channel.name;
       if (process.env.ARCHIVE_ANONYMIZE === 'true') {
-        threadData.name = `Needle - ${channel.id}`;
+        if (threadData.name.indexOf('!') < 0) {
+          threadData.name = `Needle - ${channel.id}`;
+        }
       }
       threadData.guildName = channel.guild.name;
       threadData.guildIcon = channel.guild.icon;
@@ -124,9 +126,15 @@ function msgFromMessage(discMsg: Message | null, involvedUsers: any) {
     discrim: discMsg.author.discriminator
   };
   if (process.env.ARCHIVE_ANONYMIZE === 'true') {
-    if (!involvedUsers[discMsg.author.id]) {
-      involvedUsers.count += 1;
-      involvedUsers[discMsg.author.id] = fakeUser();
+    const unmaskRole = process.env.ARCHIVE_UNMASK_ROLE || 'needle-unmask';
+    let unmasked = false;
+    if (discMsg.member?.roles.cache.find((r => r.name === unmaskRole))) unmasked = true;
+    if (unmasked) {
+      involvedUsers[discMsg.author.id] = msg.author;
+    } else {
+      if (!involvedUsers[discMsg.author.id]) {
+        involvedUsers[discMsg.author.id] = fakeUser();
+      }
     }
     msg.author = involvedUsers[discMsg.author.id];
   }
